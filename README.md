@@ -1,95 +1,69 @@
-# Ethereum Block Explorer
+# **Ethereum Block Explorer**  
 
-A modern, interactive block explorer built with React and Alchemy SDK that allows users to explore Ethereum blocks, transactions, and account balances.
+A **modern, interactive block explorer** built with **React** and **Alchemy SDK**, allowing users to explore Ethereum blocks, transactions, and account balances with ease.  
 
-## Features
+---
 
-- View current and recent blocks
-- Explore block details (timestamp, miner, gas used, etc.)
-- Browse transactions within blocks
-- View detailed transaction information
-- Check account balances
-- Responsive design for all devices
+## **🚀 Features**  
+✅ **View current and recent blocks**  
+✅ **Explore block details** (timestamp, miner, gas used, transactions)  
+✅ **Browse transactions** within blocks  
+✅ **View detailed transaction info** (sender, receiver, value, status)  
+✅ **Check account balances** (ETH & Wei)  
+✅ **Responsive design** (works on desktop & mobile)  
+✅ **Smooth navigation** between blocks, transactions, and accounts  
 
-## Getting Started
+---
 
-### 1. Create a unique Alchemy API key
+## **⚡ Getting Started**  
 
-If you have not already done so, create a unique Alchemy API Mainnet key
-for your project as [described here](https://docs.alchemy.com/reference/api-overview?a=eth-bootcamp).
+### **1. Create an Alchemy API Key**  
+If you don’t have one yet, create a free **Alchemy API Mainnet key** [here](https://dashboard.alchemy.com/).  
 
-### 2. Add your API key as an environment variable
-
-Create an empty `.env` file in the base directory of this project.
-
-Add the following line to the `.env` file replacing `YOUR_ALCHEMY_API_KEY` with your api key.
+### **2. Set Up Environment Variables**  
+Create a `.env` file in the root directory and add:  
 
 ```sh
-REACT_APP_ALCHEMY_API_KEY=YOUR_ALCHEMY_API_KEY
-```
+REACT_APP_ALCHEMY_API_KEY=your-api-key-here
+```  
 
-Do not remove the `REACT_APP_` prefix. React uses that to import env variables.
+**⚠️ Important Note**  
+> For production apps, avoid exposing API keys in frontend code.  
+> This project is for **educational purposes only**.  
 
-**⚠️ Note**
-
-> Your Alchemy API Mainnet Key is a sensitive piece of data. If we were\
-> building an enterprise app to conquer the world we would never place\
-> this sensitive data in the client code of our blockexplorer project that\
-> could potentially be read by anyone.
->
-> But hey, we're just learning this stuff right now, not conquering anything\
-> yet! :-) It won't be the end of the world to put the Alchemy API key in our\
-> front-end code for this project.
-
-### 3. Install dependencies
-
+### **3. Install Dependencies**  
 ```sh
 npm install
-```
+```  
 
-### 4. Start the development server
-
+### **4. Run the Development Server**  
 ```sh
 npm start
-```
+```  
+Open [http://localhost:3000](http://localhost:3000) to view the app.  
 
-Running the command above will run the app in the development mode. Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+---
 
-The webpage will automatically reload when you make code changes.
+## **📂 Project Structure**  
+This project was bootstrapped from [Alchemy’s Block Explorer](https://github.com/alchemyplatform/blockexplorer) and enhanced with:  
+- **Block & transaction details**  
+- **Account balance lookup**  
+- **Modern UI/UX improvements**  
+- **Responsive design**  
 
-## Project Structure
+---
 
-This project was bootstrapped from the Alchemy Block Explorer template and enhanced with additional functionality:
+## **📜 License**  
+This project is licensed under the **MIT License** – see [LICENSE](LICENSE) for details.  
 
-- Added block detail views
-- Implemented transaction exploration
-- Created account balance checker
-- Improved UI/UX with modern styling
-- Added navigation between views
+**Copyright © 2025 Priandika Ratmadani Anugrah**  
 
-## Available Scripts
+---
 
-In the project directory, you can run:
+## **🙏 Acknowledgments**  
+- Built with [Alchemy SDK](https://www.alchemy.com/)  
+- Original template from [Alchemy Block Explorer](https://github.com/alchemyplatform/blockexplorer)  
+- Inspired by the **Ethereum community** 🚀  
 
-### `npm start`
+---
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
-
-## Acknowledgments
-
-- Built using [Alchemy SDK](https://www.alchemy.com/)
-- Original template from [Alchemy Block Explorer](https://github.com/alchemyplatform/blockexplorer)
-- Inspired by Ethereum community projects
