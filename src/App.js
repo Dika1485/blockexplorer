@@ -13,18 +13,45 @@ function App() {
   const [blockNumber, setBlockNumber] = useState();
   const [currentBlock, setCurrentBlock] = useState(null);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-  const [view, setView] = useState('blocks'); // 'blocks', 'block', 'transaction'
+  const [view, setView] = useState('blocks');
   const [address, setAddress] = useState('');
   const [balance, setBalance] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [newBlocks, setNewBlocks] = useState([]);
+  const [pendingTxs, setPendingTxs] = useState([]);
 
-  // Get the latest block number
+  // Get the latest block number and setup WebSocket listeners
   useEffect(() => {
+    // Initial block number fetch
     async function getBlockNumber() {
       const number = await alchemy.core.getBlockNumber();
       setBlockNumber(number);
     }
     getBlockNumber();
+
+    // WebSocket for new blocks
+    const newBlockListener = alchemy.ws.on(
+      "block",
+      (blockNumber) => {
+        setBlockNumber(blockNumber);
+        // Add to recent blocks list
+        setNewBlocks(prev => [blockNumber, ...prev.slice(0, 4)]);
+      }
+    );
+
+    // WebSocket for pending transactions
+    const pendingTxListener = alchemy.ws.on(
+      "alchemy_pendingTransactions",
+      (tx) => {
+        setPendingTxs(prev => [tx, ...prev.slice(0, 10)]);
+      }
+    );
+
+    // Cleanup on unmount
+    return () => {
+      alchemy.ws.removeListener(newBlockListener);
+      alchemy.ws.removeListener(pendingTxListener);
+    };
   }, []);
 
   // Load block details
@@ -80,6 +107,12 @@ function App() {
     return parseFloat(wei) / 1e18;
   };
 
+  // Format address for display
+  const formatAddress = (address) => {
+    if (!address) return '';
+    return `${address.substring(0, 6)}...${address.substring(38)}`;
+  };
+
   // Navigation functions
   const goToBlocks = () => {
     setView('blocks');
@@ -108,10 +141,43 @@ function App() {
 
         {view === 'blocks' && (
           <div className="blocks-view">
+            <div className="realtime-indicator">
+              <span className="pulse"></span>
+              <span>Realtime Updates Active</span>
+            </div>
+            
             <h2>Current Block Number: {blockNumber}</h2>
             <button onClick={() => loadBlock(blockNumber)} className="block-button">
               View Latest Block
             </button>
+
+            <div className="realtime-sections">
+              <div className="new-blocks">
+                <h3>New Blocks</h3>
+                <div className="block-list">
+                  {newBlocks.map((blockNum, i) => (
+                    <div key={i} className="block-item new" onClick={() => loadBlock(blockNum)}>
+                      Block #{blockNum}
+                      <span className="new-badge">NEW</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              <div className="pending-txs">
+                <h3>Pending Transactions</h3>
+                <div className="tx-list">
+                  {pendingTxs.map((tx, i) => (
+                    <div key={i} className="tx-item" onClick={() => loadTransaction(tx.hash)}>
+                      <p><strong>From:</strong> {formatAddress(tx.from)}</p>
+                      <p><strong>To:</strong> {tx.to ? formatAddress(tx.to) : 'Contract Creation'}</p>
+                      <p><strong>Value:</strong> {weiToEther(tx.value?.toString() || '0')} ETH</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
             <div className="recent-blocks">
               <h3>Recent Blocks</h3>
               {blockNumber && (
@@ -174,7 +240,11 @@ function App() {
               <p><strong>To:</strong> {selectedTransaction.to || 'Contract Creation'}</p>
               <p><strong>Value:</strong> {weiToEther(selectedTransaction.value || '0')} ETH</p>
               <p><strong>Gas Used:</strong> {selectedTransaction.gasUsed.toString()}</p>
-              <p><strong>Status:</strong> {selectedTransaction.status === 1 ? 'Success' : 'Failed'}</p>
+              <p><strong>Status:</strong> 
+                <span className={`status-${selectedTransaction.status === 1 ? 'success' : 'failed'}`}>
+                  {selectedTransaction.status === 1 ? 'Success' : 'Failed'}
+                </span>
+              </p>
               <p><strong>Contract Address:</strong> {selectedTransaction.contractAddress || 'N/A'}</p>
               <p><strong>Logs:</strong> {selectedTransaction.logs.length}</p>
             </div>

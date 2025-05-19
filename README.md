@@ -1,6 +1,6 @@
 # **Ethereum Block Explorer**  
 
-A **modern, interactive block explorer** built with **React** and **Alchemy SDK**, allowing users to explore Ethereum blocks, transactions, and account balances with ease.  
+A **real-time, interactive block explorer** built with **React** and **Alchemy SDK**, allowing users to explore Ethereum blocks, transactions, and account balances with ease.  
 
 ---
 
