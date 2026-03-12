@@ -1,6 +1,6 @@
 # **Ethereum Block Explorer**  
 
-![Main Page](React%20App%20-%20Personal%20-%20Microsoft​%20Edge%203_12_2026%207_29_04%20PM.png)
+![Main Page](assets/React%20App%20-%20Personal%20-%20Microsoft​%20Edge%203_12_2026%207_29_04%20PM.png)
 
 A **real-time, interactive block explorer** built with **React** and **Alchemy SDK**, allowing users to explore Ethereum blocks, transactions, and account balances with ease.  
 
